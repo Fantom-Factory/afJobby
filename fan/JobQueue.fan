@@ -57,11 +57,15 @@ const class JobQueue {
 			job.nextRunTime = null
 			
 			if (!job.isCancelled) {
-				try	job.job(job)	// job jobbed!
-				catch (Err jobErr)	{
-					(onJobErr ?: |Err err| {
-						log.err("Error thrown by Job ${job.jobType.qname}", err)
-					}).call(jobErr)
+				scope.registry.activeScope.createChild("job") {
+					try {
+						job.job(job)	// job jobbed!
+						
+					} catch (Err jobErr)	{
+						(onJobErr ?: |Err err| {
+							log.err("Error thrown by Job ${job.jobType.qname}", err)
+						}).call(jobErr)
+					} 					
 				}
 			}
 			

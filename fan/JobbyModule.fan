@@ -5,6 +5,7 @@ using concurrent
 const class JobbyModule {
 	
 	Void defineServices(RegistryBuilder defs) {
+		defs.addScope("job", true)
 		defs.addService(JobQueue#)
 	}
 	

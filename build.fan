@@ -4,12 +4,13 @@ class Build : BuildPod {
 
 	new make() {
 		podName = "afJobby"
-		summary = "An IoC library for providing injectable config values"
-		version = Version("0.0.0")
+		summary = "The beginnings of a Job / Scheduler framework"
+		version = Version("0.0.1")
 
 		meta = [
 			"pod.dis"		: "Jobby",
 			"afIoc.module"	: "afJobby::JobbyModule",
+			"repo.internal"	: "true",
 			"repo.tags"		: "system",
 			"repo.public"	: "true"
 		]
