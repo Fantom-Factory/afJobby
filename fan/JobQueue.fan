@@ -79,7 +79,7 @@ const class JobQueue {
 			job.calcNextRunTime
 			jobQueue.add(job)
 			rescheduleQueue
-			log.info("Scheduled ${job.typeof.name.toDisplayName} to run at " + job.nextRunTime.toLocale("DD MMM YYYY, hh:mm:ss") + ", and every ${DurationLocale.approx(job.interval)} thereafter")
+			job.logSchedule
 
 		} else {
 			jobPool.remove(job)

@@ -3,6 +3,8 @@ using concurrent
 ** Wraps a job
 ** TODO break out a JobTrigger mixin / concept
 const class Job {
+	private const Log			log				:= Job#.pod.log
+	private const AtomicBool	logScheduleRef	:= AtomicBool(false)
 	private const AtomicBool	isCancelledRef	:= AtomicBool(false)
 	private const AtomicRef		lastRunTimeRef	:= AtomicRef()
 	private const AtomicRef		nextRunTimeRef	:= AtomicRef()
@@ -51,5 +53,12 @@ const class Job {
 	
 	Void cancel() {
 		isCancelled = true
+	}
+	
+	Void logSchedule() {
+		// no need to log this every day
+		if (logScheduleRef.val == false)
+			log.info("Scheduled ${typeof.name.toDisplayName} to run at " + nextRunTime.toLocale("DD MMM YYYY, hh:mm:ss") + ", and every ${DurationLocale.approx(interval)} thereafter")
+		logScheduleRef.val = true
 	}
 }
