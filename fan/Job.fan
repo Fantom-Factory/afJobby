@@ -56,6 +56,11 @@ const class Job {
 	}
 	
 	Void logSchedule() {
+		if (nextRunTime == null) {
+			log.info("${typeof.name.toDisplayName} NOT scheduled to run")
+			return
+		}
+		
 		// no need to log this every day
 		if (logScheduleRef.val == false)
 			log.info("Scheduled ${typeof.name.toDisplayName} to run at " + nextRunTime.toLocale("DD MMM YYYY, hh:mm:ss") + ", and every ${DurationLocale.approx(interval)} thereafter")
